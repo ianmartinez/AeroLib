@@ -1,0 +1,5 @@
+c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\obj\Debug\AeroLib.csprojResolveAssemblyReference.cache
+c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\bin\Debug\AeroLib.dll
+c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\bin\Debug\AeroLib.pdb
+c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\obj\Debug\AeroLib.dll
+c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\obj\Debug\AeroLib.pdb
