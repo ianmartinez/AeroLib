@@ -3,3 +3,8 @@ c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\bin\
 c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\bin\Debug\AeroLib.pdb
 c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\obj\Debug\AeroLib.dll
 c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\obj\Debug\AeroLib.pdb
+W:\AeroLib-master\AeroLib\obj\Debug\ResolveAssemblyReference.cache
+W:\AeroLib-master\AeroLib\obj\Debug\AeroLib.dll
+W:\AeroLib-master\AeroLib\obj\Debug\AeroLib.pdb
+W:\AeroLib-master\AeroLib\bin\Debug\AeroLib.dll
+W:\AeroLib-master\AeroLib\bin\Debug\AeroLib.pdb

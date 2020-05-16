@@ -9,3 +9,15 @@ c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\obj
 c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\obj\Debug\AeroDemo.csproj.GenerateResource.Cache
 c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\obj\Debug\AeroDemo.exe
 c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\obj\Debug\AeroDemo.pdb
+W:\AeroLib-master\AeroDemo\bin\Debug\AeroDemo.exe.config
+W:\AeroLib-master\AeroDemo\bin\Debug\AeroDemo.exe
+W:\AeroLib-master\AeroDemo\bin\Debug\AeroDemo.pdb
+W:\AeroLib-master\AeroDemo\bin\Debug\AeroLib.dll
+W:\AeroLib-master\AeroDemo\bin\Debug\AeroLib.pdb
+W:\AeroLib-master\AeroDemo\obj\Debug\ResolveAssemblyReference.cache
+W:\AeroLib-master\AeroDemo\obj\Debug\AeroDemo.MainForm.resources
+W:\AeroLib-master\AeroDemo\obj\Debug\AeroDemo.Properties.Resources.resources
+W:\AeroLib-master\AeroDemo\obj\Debug\GenerateResource.read.1.tlog
+W:\AeroLib-master\AeroDemo\obj\Debug\GenerateResource.write.1.tlog
+W:\AeroLib-master\AeroDemo\obj\Debug\AeroDemo.exe
+W:\AeroLib-master\AeroDemo\obj\Debug\AeroDemo.pdb

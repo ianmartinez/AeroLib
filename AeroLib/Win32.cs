@@ -5,8 +5,15 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
+/**
+ * (C) 2012 Ian Martinez
+ * License: MIT
+ */ 
 namespace AeroLib
 {
+    /// <summary>
+    /// Stores all of the Win32 interop and P/Invokes.
+    /// </summary>
     public static class Win32
     {
         public static uint UnsignedInteger = 0;
@@ -45,11 +52,9 @@ namespace AeroLib
             public int ColorizationGlassReflectionIntensity;
             public int ColorizationOpaqueBlend;
         }
-
-
+        
         public const uint DWM_EC_DISABLECOMPOSITION = 0;
         public const uint DWM_EC_ENABLECOMPOSITION = 1;
-
 
         [Flags]
         public enum BbFlags : byte //Blur Behind Flags
@@ -85,7 +90,6 @@ namespace AeroLib
 
         [DllImport("dwmapi.dll")]
         public static extern int DwmEnableBlurBehindWindow(IntPtr hWnd, ref BlurBehindStructure blurBehind);
-
 
         [DllImport("dwmapi.dll", EntryPoint = "DwmEnableComposition")]
         public static extern uint Win32DwmEnableComposition(uint uCompositionAction);

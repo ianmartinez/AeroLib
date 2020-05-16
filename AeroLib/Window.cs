@@ -1,36 +1,41 @@
 ﻿using System.Windows.Forms;
-using static AeroLib.Win32;
-using static AeroLib.Window;
-using static AeroLib.Desktop;
+using AeroLib;
 using System.Drawing;
 
+/**
+ * (C) 2012 Ian Martinez
+ * License: MIT
+ */ 
 namespace AeroLib
 {
+    /// <summary>
+    /// Adjust Aero for a window.
+    /// </summary>
     public static class Window
     {
        public static void AeroExtend(Form Window, int Left, int Right, int Top, int Bottom)
         {
-            if (DWMEnabled())
+            if (Desktop.DWMEnabled())
             {
-                Margins AeroMargins = new Margins();
+                Win32.Margins AeroMargins = new Win32.Margins();
                 AeroMargins.cxLeftWidth = Left;
                 AeroMargins.cxRightWidth = Right;
                 AeroMargins.cyTopHeight = Top;
                 AeroMargins.cyBottomHeight = Bottom;
-                DwmExtendFrameIntoClientArea(Window.Handle, ref AeroMargins);
+                Win32.DwmExtendFrameIntoClientArea(Window.Handle, ref AeroMargins);
             }
         }
 
         public static void AeroRetract(Form Window)
         {
-            if (DWMEnabled())
+            if (Desktop.DWMEnabled())
             {
-                Margins AeroMargins = new Margins();
+                Win32.Margins AeroMargins = new Win32.Margins();
                 AeroMargins.cxLeftWidth = 0;
                 AeroMargins.cxRightWidth = 0;
                 AeroMargins.cyTopHeight = 0;
                 AeroMargins.cyBottomHeight = 0;
-                DwmExtendFrameIntoClientArea(Window.Handle, ref AeroMargins);
+                Win32.DwmExtendFrameIntoClientArea(Window.Handle, ref AeroMargins);
             }
         }
 
@@ -41,34 +46,33 @@ namespace AeroLib
 
         public static void AeroFill(Form Window)
         {
-            if (DWMEnabled())
+            if (Desktop.DWMEnabled())
                 AeroExtend(Window, -1, -1, -1, -1);
         }
 
         public static void AeroSurroundControl(Form Window, Control Control)
         {
-            if (DWMEnabled())
+            if (Desktop.DWMEnabled())
                 AeroExtend(Window, Control.Left, Window.ClientSize.Width - Control.Right, Control.Top, Window.ClientSize.Height - Control.Bottom);
         }
 
         public static void RemoveFromAeroPeek(Form Window)
         {
-            if (DWMEnabled() && System.Environment.OSVersion.Version.Minor == 1)
+            if (Desktop.DWMEnabled() && System.Environment.OSVersion.Version.Minor == 1)
             {
                 int attrValue = 1;
-                DwmSetWindowAttribute(Window.Handle, 12, ref attrValue, 4);
+                Win32.DwmSetWindowAttribute(Window.Handle, 12, ref attrValue, 4);
             }
         }
 
         public static void AddToAeroPeek(Form Window)
         {
-            if (DWMEnabled() && System.Environment.OSVersion.Version.Minor == 1)
+            if (Desktop.DWMEnabled() && System.Environment.OSVersion.Version.Minor == 1)
             {
                 int attrValue = 0;
-                DwmSetWindowAttribute(Window.Handle, 12, ref attrValue, 4);
+                Win32.DwmSetWindowAttribute(Window.Handle, 12, ref attrValue, 4);
             }
         }
-
 
         public static void FillScreen(Form form)
         {
