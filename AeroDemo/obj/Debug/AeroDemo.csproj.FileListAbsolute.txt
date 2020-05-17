@@ -1,14 +1,21 @@
-c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\bin\Debug\AeroDemo.exe.config
-c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\bin\Debug\AeroDemo.exe
-c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\bin\Debug\AeroDemo.pdb
-c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\bin\Debug\AeroLib.dll
-c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\bin\Debug\AeroLib.pdb
-c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\obj\Debug\AeroDemo.csprojResolveAssemblyReference.cache
-c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\obj\Debug\AeroDemo.frmMain.resources
-c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\obj\Debug\AeroDemo.Properties.Resources.resources
-c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\obj\Debug\AeroDemo.csproj.GenerateResource.Cache
-c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\obj\Debug\AeroDemo.exe
-c:\Users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroDemo\obj\Debug\AeroDemo.pdb
+c:/Users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroDemo/bin/Debug/AeroDemo.exe.config
+c:/Users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroDemo/bin/Debug/AeroDemo.exe
+c:/Users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroDemo/bin/Debug/AeroDemo.pdb
+c:/Users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroDemo/bin/Debug/AeroLib.dll
+c:/Users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroDemo/bin/Debug/AeroLib.pdb
+c:/Users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroDemo/obj/Debug/AeroDemo.csprojResolveAssemblyReference.cache
+c:/Users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroDemo/obj/Debug/AeroDemo.frmMain.resources
+c:/Users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroDemo/obj/Debug/AeroDemo.Properties.Resources.resources
+c:/Users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroDemo/obj/Debug/AeroDemo.csproj.GenerateResource.Cache
+c:/Users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroDemo/obj/Debug/AeroDemo.exe
+c:/Users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroDemo/obj/Debug/AeroDemo.pdb
+/Users/ianmartinez/GitHub/AeroLib/AeroDemo/obj/Debug/AeroDemo.csprojAssemblyReference.cache
+/Users/ianmartinez/GitHub/AeroLib/AeroDemo/obj/Debug/AeroDemo.MainForm.resources
+/Users/ianmartinez/GitHub/AeroLib/AeroDemo/obj/Debug/AeroDemo.Properties.Resources.resources
+/Users/ianmartinez/GitHub/AeroLib/AeroDemo/obj/Debug/AeroDemo.csproj.GenerateResource.cache
+/Users/ianmartinez/GitHub/AeroLib/AeroDemo/obj/Debug/AeroDemo.csproj.CoreCompileInputs.cache
+/Users/ianmartinez/GitHub/AeroLib/AeroDemo/obj/Debug/AeroDemo.exe
+/Users/ianmartinez/GitHub/AeroLib/AeroDemo/obj/Debug/AeroDemo.pdb
 W:\AeroLib-master\AeroDemo\bin\Debug\AeroDemo.exe.config
 W:\AeroLib-master\AeroDemo\bin\Debug\AeroDemo.exe
 W:\AeroLib-master\AeroDemo\bin\Debug\AeroDemo.pdb

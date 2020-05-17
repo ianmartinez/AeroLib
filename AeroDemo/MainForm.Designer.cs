@@ -33,6 +33,10 @@
             this.GetColorButton = new System.Windows.Forms.Button();
             this.SetColorButton = new System.Windows.Forms.Button();
             this.ColorDialog = new System.Windows.Forms.ColorDialog();
+            this.SurroundedPanel = new System.Windows.Forms.Panel();
+            this.SurroundedLabel = new System.Windows.Forms.Label();
+            this.SurroundPanelButton = new System.Windows.Forms.Button();
+            this.SurroundedPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // FillButton
@@ -84,11 +88,47 @@
             this.ColorDialog.AnyColor = true;
             this.ColorDialog.FullOpen = true;
             // 
+            // SurroundedPanel
+            // 
+            this.SurroundedPanel.BackColor = System.Drawing.Color.Transparent;
+            this.SurroundedPanel.Controls.Add(this.SurroundedLabel);
+            this.SurroundedPanel.ForeColor = System.Drawing.Color.Black;
+            this.SurroundedPanel.Location = new System.Drawing.Point(12, 108);
+            this.SurroundedPanel.Margin = new System.Windows.Forms.Padding(3, 12, 3, 12);
+            this.SurroundedPanel.Name = "SurroundedPanel";
+            this.SurroundedPanel.Size = new System.Drawing.Size(445, 184);
+            this.SurroundedPanel.TabIndex = 0;
+            // 
+            // SurroundedLabel
+            // 
+            this.SurroundedLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SurroundedLabel.ForeColor = System.Drawing.Color.Black;
+            this.SurroundedLabel.Location = new System.Drawing.Point(0, 0);
+            this.SurroundedLabel.Name = "SurroundedLabel";
+            this.SurroundedLabel.Size = new System.Drawing.Size(445, 184);
+            this.SurroundedLabel.TabIndex = 0;
+            this.SurroundedLabel.Text = "Surround Me!";
+            this.SurroundedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.SurroundedLabel.UseCompatibleTextRendering = true;
+            // 
+            // SurroundPanelButton
+            // 
+            this.SurroundPanelButton.Location = new System.Drawing.Point(12, 307);
+            this.SurroundPanelButton.Name = "SurroundPanelButton";
+            this.SurroundPanelButton.Size = new System.Drawing.Size(445, 23);
+            this.SurroundPanelButton.TabIndex = 4;
+            this.SurroundPanelButton.Text = "Surround Panel With Glass";
+            this.SurroundPanelButton.UseCompatibleTextRendering = true;
+            this.SurroundPanelButton.UseVisualStyleBackColor = true;
+            this.SurroundPanelButton.Click += new System.EventHandler(this.SurroundPanelButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(469, 108);
+            this.ClientSize = new System.Drawing.Size(469, 344);
+            this.Controls.Add(this.SurroundPanelButton);
+            this.Controls.Add(this.SurroundedPanel);
             this.Controls.Add(this.SetColorButton);
             this.Controls.Add(this.GetColorButton);
             this.Controls.Add(this.RetractButton);
@@ -100,6 +140,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AeroLib Demo";
+            this.SurroundedPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -111,6 +152,9 @@
         private System.Windows.Forms.Button GetColorButton;
         private System.Windows.Forms.Button SetColorButton;
         private System.Windows.Forms.ColorDialog ColorDialog;
+        private System.Windows.Forms.Panel SurroundedPanel;
+        private System.Windows.Forms.Label SurroundedLabel;
+        private System.Windows.Forms.Button SurroundPanelButton;
     }
 }
 

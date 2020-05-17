@@ -1,10 +1,15 @@
-c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\obj\Debug\AeroLib.csprojResolveAssemblyReference.cache
-c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\bin\Debug\AeroLib.dll
-c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\bin\Debug\AeroLib.pdb
-c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\obj\Debug\AeroLib.dll
-c:\users\ian martinez\documents\visual studio 2015\Projects\AeroLib\AeroLib\obj\Debug\AeroLib.pdb
+c:/users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroLib/obj/Debug/AeroLib.csprojResolveAssemblyReference.cache
+c:/users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroLib/bin/Debug/AeroLib.dll
+c:/users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroLib/bin/Debug/AeroLib.pdb
+c:/users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroLib/obj/Debug/AeroLib.dll
+c:/users/ian martinez/documents/visual studio 2015/Projects/AeroLib/AeroLib/obj/Debug/AeroLib.pdb
+/Users/ianmartinez/GitHub/AeroLib/AeroLib/bin/Debug/AeroLib.dll
+/Users/ianmartinez/GitHub/AeroLib/AeroLib/bin/Debug/AeroLib.pdb
+/Users/ianmartinez/GitHub/AeroLib/AeroLib/obj/Debug/AeroLib.csproj.CoreCompileInputs.cache
+/Users/ianmartinez/GitHub/AeroLib/AeroLib/obj/Debug/AeroLib.dll
+/Users/ianmartinez/GitHub/AeroLib/AeroLib/obj/Debug/AeroLib.pdb
+W:\AeroLib-master\AeroLib\bin\Debug\AeroLib.dll
+W:\AeroLib-master\AeroLib\bin\Debug\AeroLib.pdb
 W:\AeroLib-master\AeroLib\obj\Debug\ResolveAssemblyReference.cache
 W:\AeroLib-master\AeroLib\obj\Debug\AeroLib.dll
 W:\AeroLib-master\AeroLib\obj\Debug\AeroLib.pdb
-W:\AeroLib-master\AeroLib\bin\Debug\AeroLib.dll
-W:\AeroLib-master\AeroLib\bin\Debug\AeroLib.pdb

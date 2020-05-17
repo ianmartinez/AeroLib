@@ -1,171 +1,299 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
 
 /**
- * (C) 2012 Ian Martinez
- * License: MIT
- */ 
+ * MIT License
+ * Copyright (c) 2011-2020 Ian Martinez
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 namespace AeroLib
 {
     /// <summary>
     /// Get and configure desktop parameters related to DWM.
+    /// 
+    /// All properties are nullable and check if DWM is enabled
+    /// or even exists before setting a value. If DWM is not enabled
+    /// or does not exist, the value of these properties will be null.
     /// </summary>
     public static class Desktop
     {
-
-        public static bool DWMEnabled()
+        /// <summary>
+        /// If the DWM exists on the system.
+        /// </summary>
+        public static bool HasDWM
         {
-            return (Environment.OSVersion.Version.Major >= 6 && Environment.OSVersion.Version.Build >= 5600) && File.Exists(Environment.SystemDirectory + "\\dwmapi.dll");
+            get
+            {
+                return Environment.OSVersion.Version.Major >= 6
+                    && Environment.OSVersion.Version.Build >= 5600
+                    && File.Exists(Environment.SystemDirectory + "\\dwmapi.dll");
+            }
         }
 
-        public static void DisableComposition()
+        /// <summary>
+        /// If the DWM exists on the system and its composition is enabled.
+        /// </summary>
+        public static bool DWMEnabled
         {
-            if (DWMEnabled())
-                Win32.Win32DwmEnableComposition(Win32.DWM_EC_DISABLECOMPOSITION);
+            get
+            {
+                return HasDWM && Win32.DwmIsCompositionEnabled();
+            }
         }
 
+        /// <summary>
+        /// If the OS supports Aero Peek (i.e. is Windows 7 or greater).
+        /// </summary>
+        public static bool SupportsAeroPeek
+        {
+            get
+            {
+                return HasDWM && Environment.OSVersion.Version.Minor == 1;
+            }
+        }
+               
+        /// <summary>
+        /// Enable DWM composition.
+        /// </summary>
         public static void EnableComposition()
         {
-            if (DWMEnabled())
+            if (HasDWM)
                 Win32.Win32DwmEnableComposition(Win32.DWM_EC_ENABLECOMPOSITION);
         }
 
-        public static void SetColor(Color AeroColor)
+        /// <summary>
+        /// Disable DWM composition.
+        /// </summary>
+        public static void DisableComposition()
         {
-            if (DWMEnabled() == false)
-                return;
-            Win32.AeroParameters AeroParameters = GetParameters();
-            AeroParameters.ColorizationColor = System.Drawing.Color.FromArgb(255, AeroColor.R, AeroColor.G, AeroColor.B).ToArgb();
-            SetParameters(AeroParameters);
+            if (HasDWM)
+                Win32.Win32DwmEnableComposition(Win32.DWM_EC_DISABLECOMPOSITION);
         }
 
-        public static void SetAllColors(Color AeroColor)
+        /// <summary>
+        /// The primary Aero color. Will return null if on a system that
+        /// doesn't have Aero. Setting it to null will have no effect.
+        /// </summary>
+        public static Color? AeroColor
         {
-            if (DWMEnabled() == false)
-                return;
-            Win32.AeroParameters AeroParameters = GetParameters();
-            AeroParameters.ColorizationColor = System.Drawing.Color.FromArgb(255, AeroColor.R, AeroColor.G, AeroColor.B).ToArgb();
-            AeroParameters.ColorizationAfterglow = System.Drawing.Color.FromArgb(255, AeroColor.R, AeroColor.G, AeroColor.B).ToArgb();
-            SetParameters(AeroParameters);
+            get
+            {
+                if (!DWMEnabled)
+                    return null;
+
+                var aeroParameters = GetParameters();
+                return Color.FromArgb(aeroParameters.ColorizationColor);
+            }
+
+            set
+            {
+                if (value != null && DWMEnabled)
+                {
+                    var aeroParameters = GetParameters();
+                    aeroParameters.ColorizationColor = Color.FromArgb(255, value.Value.R, value.Value.G, value.Value.B).ToArgb();
+                    SetParameters(aeroParameters);
+                }
+            }
         }
 
-        public static void SetAfterglowColor(Color AfterglowColor)
+        /// <summary>
+        /// The secondary (afterglow) Aero color. Will return null if on a system
+        /// that doesn't have Aero. Setting it to null will have no effect.
+        /// </summary>
+        public static Color? AfterglowColor
         {
-            if (DWMEnabled() == false)
-                return;
-            Win32.AeroParameters AeroParameters = GetParameters();
-            AeroParameters.ColorizationAfterglow = System.Drawing.Color.FromArgb(255, AfterglowColor.R, AfterglowColor.G, AfterglowColor.B).ToArgb();
-            SetParameters(AeroParameters);
+            get
+            {
+                if (!DWMEnabled)
+                    return null;
+
+                var aeroParameters = GetParameters();
+                return Color.FromArgb(aeroParameters.ColorizationAfterglow);
+            }
+
+            set
+            {
+                if(value != null && DWMEnabled)
+                {
+                    var aeroParameters = GetParameters();
+                    aeroParameters.ColorizationAfterglow = Color.FromArgb(255, value.Value.R, value.Value.G, value.Value.B).ToArgb();
+                    SetParameters(aeroParameters);
+                }
+            }
         }
 
-        public static void SetBlurBalance(int BlurBalance)
+        /// <summary>
+        /// Aero's opacity. Will return null if on a system
+        /// that doesn't have Aero. Setting it to null will have no effect.
+        /// </summary>
+        public static bool? AeroOpacity
         {
-            if (DWMEnabled() == false)
-                return;
-            Win32.AeroParameters AeroParameters = GetParameters();
-            AeroParameters.ColorizationBlurBalance = BlurBalance;
-            SetParameters(AeroParameters);
+            get
+            {
+                if (!DWMEnabled)
+                    return null;
+
+                return Convert.ToBoolean(GetParameters().ColorizationOpaqueBlend);
+            }
+
+            set
+            {
+                if (value != null && DWMEnabled)
+                {
+                    var aeroParameters = GetParameters();
+                    aeroParameters.ColorizationOpaqueBlend = Convert.ToInt32(value.Value);
+                    SetParameters(aeroParameters);
+                }
+            }
         }
 
-        public static void SetAfterglowBalance(int AfterglowBalance)
+        /// <summary>
+        /// Aero's color balance (0-100). Will return null if on a system
+        /// that doesn't have Aero. Setting it to null will have no effect.
+        /// </summary>
+        public static int? AeroColorBalance
         {
-            if (DWMEnabled() == false)
-                return;
-            Win32.AeroParameters AeroParameters = GetParameters();
-            AeroParameters.ColorizationAfterglowBalance = AfterglowBalance;
-            SetParameters(AeroParameters);
+            get
+            {
+                if (!DWMEnabled)
+                    return null;
+
+                return GetParameters().ColorizationColorBalance;
+            }
+
+            set
+            {
+                if (value != null && DWMEnabled)
+                {
+                    var aeroParameters = GetParameters();
+                    aeroParameters.ColorizationColorBalance = value.Value;
+                    SetParameters(aeroParameters);
+                }
+            }
         }
 
-        public static void SetGlassReflectionIntensity(int GlassReflectionIntensity)
+        /// <summary>
+        /// Aero's afterglow balance. Will return null if on a system
+        /// that doesn't have Aero. Setting it to null will have no effect.
+        /// </summary>
+        public static int? AeroAfterglowBalance
         {
-            if (DWMEnabled() == false)
-                return;
-            Win32.AeroParameters AeroParameters = GetParameters();
-            AeroParameters.ColorizationGlassReflectionIntensity = GlassReflectionIntensity;
-            SetParameters(AeroParameters);
+            get
+            {
+                if (!DWMEnabled)
+                    return null;
+
+                return GetParameters().ColorizationAfterglowBalance;
+            }
+
+            set
+            {
+                if (value != null && DWMEnabled)
+                {
+                    var aeroParameters = GetParameters();
+                    aeroParameters.ColorizationAfterglowBalance = value.Value;
+                    SetParameters(aeroParameters);
+                }
+            }
         }
 
-        public static void SetColorBalance(int ColorBalance)
+        /// <summary>
+        /// Aero's blur balance. Will return null if on a system
+        /// that doesn't have Aero. Setting it to null will have no effect.
+        /// </summary>
+        public static int? AeroBlurBalance
         {
-            if (DWMEnabled() == false)
-                return;
-            Win32.AeroParameters AeroParameters = GetParameters();
-            AeroParameters.ColorizationColorBalance = ColorBalance;
-            SetParameters(AeroParameters);
+            get
+            {
+                if (!DWMEnabled)
+                    return null;
+
+                return GetParameters().ColorizationBlurBalance;
+            }
+
+            set
+            {
+                if (value != null && DWMEnabled)
+                {
+                    var aeroParameters = GetParameters();
+                    aeroParameters.ColorizationBlurBalance = value.Value;
+                    SetParameters(aeroParameters);
+                }
+            }
         }
 
-        public static int GetColorBalance()
+        /// <summary>
+        /// Aero's glass reflection intensity. Will return null if on a system
+        /// that doesn't have Aero. Setting it to null will have no effect.
+        /// </summary>
+        public static int? AeroGlassReflectionIntensity
         {
-            if (DWMEnabled() == false)
-                return 0;
-            Win32.AeroParameters AeroParameters = GetParameters();
-            return AeroParameters.ColorizationColorBalance;
+            get
+            {
+                if (!DWMEnabled)
+                    return null;
+
+                return GetParameters().ColorizationGlassReflectionIntensity;
+            }
+
+            set
+            {
+                if (value != null && DWMEnabled)
+                {
+                    var aeroParameters = GetParameters();
+                    aeroParameters.ColorizationGlassReflectionIntensity = value.Value;
+                    SetParameters(aeroParameters);
+                }
+            }
+        }
+                     
+        /// <summary>
+        /// Set both the primary Aero color and the afterglow color to a color.
+        /// </summary>
+        /// 
+        /// <param name="color">The color to set it to.</param>
+        public static void SetAllColors(Color color)
+        {
+            if(DWMEnabled)
+            {
+                var aeroParameters = GetParameters();
+                aeroParameters.ColorizationColor = Color.FromArgb(255, color.R, color.G, color.B).ToArgb();
+                aeroParameters.ColorizationAfterglow = Color.FromArgb(255, color.R, color.G, color.B).ToArgb();
+                SetParameters(aeroParameters);
+            }
         }
 
-        public static int GetAfterglowBalance()
-        {
-            if (DWMEnabled() == false)
-                return 0;
-            Win32.AeroParameters AeroParameters = GetParameters();
-            return AeroParameters.ColorizationAfterglowBalance;
-        }
-
-        public static int GetBlurBalance()
-        {
-            if (DWMEnabled() == false)
-                return 0;
-            Win32.AeroParameters AeroParameters = GetParameters();
-            return AeroParameters.ColorizationBlurBalance;
-        }
-
-        public static int GetGlassReflectionIntensity()
-        {
-            if (DWMEnabled() == false)
-                return 0;
-            Win32.AeroParameters AeroParameters = GetParameters();
-            return AeroParameters.ColorizationGlassReflectionIntensity;
-        }
-
-        public static Color GetColor()
-        {
-            if (DWMEnabled() == false)
-                return new Color();
-            Win32.AeroParameters AeroParameters = GetParameters();
-            return Color.FromArgb(AeroParameters.ColorizationColor);
-        }
-
-        public static Color GetAfterglowColor()
-        {
-            if (DWMEnabled() == false)
-                return new Color();
-            Win32.AeroParameters AeroParameters = GetParameters();
-            return Color.FromArgb(AeroParameters.ColorizationAfterglow);
-        }
-
-        public static bool GetOpacity()
-        {
-            if (DWMEnabled() == false)
-                return false;
-            return Convert.ToBoolean(GetParameters().ColorizationOpaqueBlend);
-        }
-        public static void SetOpacity(bool Opaque)
-        {
-            if (DWMEnabled() == false)
-                return;
-            Win32.AeroParameters AeroParameters = GetParameters();
-            AeroParameters.ColorizationOpaqueBlend = Convert.ToInt32(Opaque);
-            SetParameters(AeroParameters);
-        }
-
+        /// <summary>
+        /// Get the AeroParameters struct used in the Windows API for
+        /// configuring Aero.
+        /// </summary>
+        /// 
+        /// <returns>The AeroParameters struct.</returns>
         public static Win32.AeroParameters GetParameters()
         {
-            if (DWMEnabled() == true)
+            if (DWMEnabled == true)
             {
-                Win32.AeroParameters AeroParameters = default(Win32.AeroParameters);
-                Win32.DwmGetColorizationParameters(ref AeroParameters);
-                return AeroParameters;
+                Win32.AeroParameters aeroParameters = default(Win32.AeroParameters);
+                Win32.DwmGetColorizationParameters(ref aeroParameters);
+                return aeroParameters;
             }
             else
             {
@@ -173,20 +301,16 @@ namespace AeroLib
             }
         }
 
-        public static void SetParameters(Win32.AeroParameters AeroParameters)
+        /// <summary>
+        /// Set the AeroParameters struct used in the Windows API for
+        /// configuring Aero.
+        /// </summary>
+        /// 
+        /// <param name="aeroParameters">The AeroParameters struct.</param>
+        public static void SetParameters(Win32.AeroParameters aeroParameters)
         {
-            if (DWMEnabled() == true)
-                Win32.DwmSetColorizationParameters(ref AeroParameters, Win32.UnsignedInteger);
-        }
-
-        public static int GetHeight()
-        {
-            return Screen.PrimaryScreen.Bounds.Height;
-        }
-
-        public static int GetWidth()
-        {
-            return Screen.PrimaryScreen.Bounds.Width;
+            if (DWMEnabled)
+                Win32.DwmSetColorizationParameters(ref aeroParameters, Win32.UnsignedInteger);
         }
     }
 }

@@ -1,11 +1,27 @@
 ﻿using System.Windows.Forms;
-using AeroLib;
-using System.Drawing;
 
 /**
- * (C) 2012 Ian Martinez
- * License: MIT
- */ 
+ * MIT License
+ * Copyright (c) 2011-2020 Ian Martinez
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 namespace AeroLib
 {
     /// <summary>
@@ -13,72 +29,113 @@ namespace AeroLib
     /// </summary>
     public static class Window
     {
-       public static void AeroExtend(Form Window, int Left, int Right, int Top, int Bottom)
+        /// <summary>
+        /// Extend Aero glass into the client area of a form from
+        /// the left, right, top, and bottom margins.
+        /// </summary>
+        /// 
+        /// <param name="form">The form to extend Aero glass into.</param>
+        /// <param name="left">The form's left margin.</param>
+        /// <param name="right">The form's right margin.</param>
+        /// <param name="top">The form's top margin.</param>
+        /// <param name="bottom">The form's bottom margin.</param>        
+        public static void AeroExtend(Form form, int left, int right, int top, int bottom)
         {
-            if (Desktop.DWMEnabled())
+            if (Desktop.DWMEnabled)
             {
-                Win32.Margins AeroMargins = new Win32.Margins();
-                AeroMargins.cxLeftWidth = Left;
-                AeroMargins.cxRightWidth = Right;
-                AeroMargins.cyTopHeight = Top;
-                AeroMargins.cyBottomHeight = Bottom;
-                Win32.DwmExtendFrameIntoClientArea(Window.Handle, ref AeroMargins);
+                var AeroMargins = new Win32.Margins
+                {
+                    cxLeftWidth = left,
+                    cxRightWidth = right,
+                    cyTopHeight = top,
+                    cyBottomHeight = bottom
+                };
+
+                Win32.DwmExtendFrameIntoClientArea(form.Handle, ref AeroMargins);
             }
         }
 
-        public static void AeroRetract(Form Window)
+        /// <summary>
+        /// Remove expanded Aero glass from a form's client area.
+        /// </summary>
+        /// 
+        /// <param name="form">The form to retract the Aero glass from.</param>
+        public static void AeroRetract(Form form)
         {
-            if (Desktop.DWMEnabled())
+            if (Desktop.DWMEnabled)
             {
-                Win32.Margins AeroMargins = new Win32.Margins();
-                AeroMargins.cxLeftWidth = 0;
-                AeroMargins.cxRightWidth = 0;
-                AeroMargins.cyTopHeight = 0;
-                AeroMargins.cyBottomHeight = 0;
-                Win32.DwmExtendFrameIntoClientArea(Window.Handle, ref AeroMargins);
+                var AeroMargins = new Win32.Margins
+                {
+                    cxLeftWidth = 0,
+                    cxRightWidth = 0,
+                    cyTopHeight = 0,
+                    cyBottomHeight = 0
+                };
+
+                Win32.DwmExtendFrameIntoClientArea(form.Handle, ref AeroMargins);
             }
         }
 
-        public static void AeroToolbar(Form Window, Control Cont)
+        /// <summary>
+        /// Extend Aero glass into the client area of a form from the top (for
+        /// a toolbar).
+        /// </summary>
+        /// 
+        /// <param name="form">The form to extend Aero glass into.</param>
+        /// <param name="control">The toolbar control.</param>
+        public static void AeroToolbar(Form form, Control control)
         {
-            AeroExtend(Window, 0, 0, Cont.Height, 0);
+            AeroExtend(form, 0, 0, control.Height, 0);
         }
 
-        public static void AeroFill(Form Window)
+        /// <summary>
+        /// Extend Aero glass to cover the entire client area of a form.
+        /// </summary>
+        /// 
+        /// <param name="form">The form to extend Aero glass into.</param>
+        public static void AeroFill(Form form)
         {
-            if (Desktop.DWMEnabled())
-                AeroExtend(Window, -1, -1, -1, -1);
+            AeroExtend(form, -1, -1, -1, -1);
         }
 
-        public static void AeroSurroundControl(Form Window, Control Control)
+        /// <summary>
+        /// Extend Aero glass into the client area of a form to surround a
+        /// control.
+        /// </summary>
+        /// 
+        /// <param name="form">The form to extend Aero glass into.</param>
+        /// <param name="control">The control to surround.</param>
+        public static void AeroSurroundControl(Form form, Control control)
         {
-            if (Desktop.DWMEnabled())
-                AeroExtend(Window, Control.Left, Window.ClientSize.Width - Control.Right, Control.Top, Window.ClientSize.Height - Control.Bottom);
+            AeroExtend(form, control.Left, form.ClientSize.Width - control.Right, control.Top, form.ClientSize.Height - control.Bottom);
         }
 
-        public static void RemoveFromAeroPeek(Form Window)
+        /// <summary>
+        /// Remove a form from Aero Peek.
+        /// </summary>
+        /// 
+        /// <param name="form">The form to remove from Aero Peek.</param>
+        public static void RemoveFromAeroPeek(Form form)
         {
-            if (Desktop.DWMEnabled() && System.Environment.OSVersion.Version.Minor == 1)
+            if (Desktop.SupportsAeroPeek)
             {
                 int attrValue = 1;
-                Win32.DwmSetWindowAttribute(Window.Handle, 12, ref attrValue, 4);
+                Win32.DwmSetWindowAttribute(form.Handle, 12, ref attrValue, 4);
             }
         }
 
-        public static void AddToAeroPeek(Form Window)
+        /// <summary>
+        /// Add a form to Aero Peek.
+        /// </summary>
+        /// 
+        /// <param name="form">The form to add to Aero Peek.</param>
+        public static void AddToAeroPeek(Form form)
         {
-            if (Desktop.DWMEnabled() && System.Environment.OSVersion.Version.Minor == 1)
+            if (Desktop.SupportsAeroPeek)
             {
                 int attrValue = 0;
-                Win32.DwmSetWindowAttribute(Window.Handle, 12, ref attrValue, 4);
+                Win32.DwmSetWindowAttribute(form.Handle, 12, ref attrValue, 4);
             }
-        }
-
-        public static void FillScreen(Form form)
-        {
-            form.FormBorderStyle = FormBorderStyle.None;
-            form.Location = new Point(0, 0);
-            form.Size = new Size(Desktop.GetWidth(), Desktop.GetHeight());
         }
     }
 }
